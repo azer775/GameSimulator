@@ -1,0 +1,47 @@
+.clock-container {
+  display: inline-block;
+  text-align: center;
+  font-family: 'Roboto', Arial, sans-serif;
+  background: #ffffff; /* White background */
+  padding: 12px 16px; /* Smaller padding */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  color: #333; /* Dark text for contrast */
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin: 16px; /* Consistent margin */
+  max-width: 200px; /* Smaller size */
+}
+
+.clock-container:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow on hover */
+}
+
+.clock-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* Space between icon and text */
+}
+
+.clock-icon {
+  font-size: 24px;
+  color: #3f51b5; /* Material primary color for the icon */
+}
+
+.clock-text {
+  text-align: left;
+}
+
+.clock-time {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0;
+  color: #333; /* Dark text for time */
+}
+
+.clock-date {
+  font-size: 14px;
+  margin: 0;
+  color: #666; /* Lighter text for date */
+}

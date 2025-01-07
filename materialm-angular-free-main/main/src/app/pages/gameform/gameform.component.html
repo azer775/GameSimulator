@@ -1,0 +1,87 @@
+<div>
+    <h2>Create a New Game</h2>
+  
+    <form [formGroup]="gameForm" (ngSubmit)="createGame()">
+      <div>
+        <label for="name">Name</label>
+        <input type="text" id="name" formControlName="name" required />
+        <div *ngIf="gameForm.get('name')?.invalid && gameForm.get('name')?.touched">
+          <small *ngIf="gameForm.get('name')?.hasError('required')">Name is required.</small>
+          <small *ngIf="gameForm.get('name')?.hasError('minlength')">Name must be at least 3 characters long.</small>
+        </div>
+      </div>
+  
+      <div>
+        <label for="startDate">Start Date</label>
+        <input type="datetime-local" id="startDate" formControlName="startDate" required />
+        <div *ngIf="gameForm.get('startDate')?.invalid && gameForm.get('startDate')?.touched">
+          <small *ngIf="gameForm.get('startDate')?.hasError('required')">Start Date is required.</small>
+        </div>
+      </div>
+  
+      <div>
+        <label for="endDate">End Date</label>
+        <input type="datetime-local" id="endDate" formControlName="endDate" required />
+        <div *ngIf="gameForm.get('endDate')?.invalid && gameForm.get('endDate')?.touched">
+          <small *ngIf="gameForm.get('endDate')?.hasError('required')">End Date is required.</small>
+        </div>
+      </div>
+
+      <div>
+        <label for="virtualStartDate">virtual start Date</label>
+        <input type="datetime-local" id="virtualStartDate" formControlName="virtualStartDate" required />
+        <div *ngIf="gameForm.get('virtualStartDate')?.invalid && gameForm.get('virtualStartDate')?.touched">
+          <small *ngIf="gameForm.get('virtualStartDate')?.hasError('virtualStartDate')">virtual start Date is required.</small>
+        </div>
+      </div>
+  
+      <div>
+        <label for="simulationDays">Simulation Days</label>
+        <input type="number" id="simulationDays" formControlName="simulationDays" required />
+        <div *ngIf="gameForm.get('simulationDays')?.invalid && gameForm.get('simulationDays')?.touched">
+          <small *ngIf="gameForm.get('simulationDays')?.hasError('required')">Simulation Days are required.</small>
+          <small *ngIf="gameForm.get('simulationDays')?.hasError('min')">Minimum value is 1.</small>
+        </div>
+      </div>
+  
+      <div>
+        <label for="candlesPerDay">Candles per Day</label>
+        <input type="number" id="candlesPerDay" formControlName="candlesPerDay" required />
+        <div *ngIf="gameForm.get('candlesPerDay')?.invalid && gameForm.get('candlesPerDay')?.touched">
+          <small *ngIf="gameForm.get('candlesPerDay')?.hasError('required')">Candles per Day are required.</small>
+          <small *ngIf="gameForm.get('candlesPerDay')?.hasError('min')">Minimum value is 1.</small>
+        </div>
+      </div>
+  
+      <div>
+        <label for="startingAmount">Starting Amount</label>
+        <input type="number" id="startingAmount" formControlName="startingAmount" required />
+        <div *ngIf="gameForm.get('startingAmount')?.invalid && gameForm.get('startingAmount')?.touched">
+          <small *ngIf="gameForm.get('startingAmount')?.hasError('required')">Starting Amount is required.</small>
+          <small *ngIf="gameForm.get('startingAmount')?.hasError('min')">Minimum value is 1.</small>
+        </div>
+      </div>
+
+      <div>
+        <label for="Allowstoploss">Allow Stoploss</label>
+        <input type="checkbox" id="Allowstoploss" formControlName="allowstoploss"  />
+      </div>
+  
+      <div>
+        <label for="Allowtakeprofit">Allow take profit</label>
+        <input type="checkbox" id="Allowtakeprofit" formControlName="allowtakeprofit"  />
+      </div>
+
+      <div>
+        <label for="Allowshortpos"> Allow short position </label>
+        <input type="checkbox" id="Allowshortpos" formControlName="allowshortpos"  />
+      </div>
+
+      <div>
+        <label for="Allowlongpos">Allow long position </label>
+        <input type="checkbox" id="Allowlongpos" formControlName="allowlongpos"  />
+      </div>
+      <button type="submit" [disabled]="gameForm.invalid">Create Game</button>
+    </form>
+  </div>
+  

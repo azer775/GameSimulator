@@ -1,0 +1,48 @@
+<h1 class="form-title">Open a Trade</h1>
+<form [formGroup]="tradeForm" (ngSubmit)="submitTrade()" class="trade-form">
+  <!-- Position Dropdown -->
+  <mat-form-field appearance="fill">
+    <mat-label>Position</mat-label>
+    <select matNativeControl id="position" formControlName="position" required (change)="calculateMaxGainAndLoss()">
+      <option value="" disabled>Select a position</option>
+      <option *ngIf="gameport.game.allowlongpos" value="LONG">LONG</option>
+      <option *ngIf="gameport.game.allowshortpos" value="SHORT">SHORT</option>
+    </select>
+  </mat-form-field>
+
+  <!-- Shares Input -->
+  <mat-form-field appearance="fill">
+    <mat-label>Shares</mat-label>
+    <input matInput id="shares" type="number" formControlName="shares" min="1" required (input)="calculateMaxGainAndLoss()" />
+  </mat-form-field>
+
+  <!-- Price Input -->
+  <mat-form-field appearance="fill">
+    <mat-label>Price</mat-label>
+    <input matInput id="price" type="number" readonly value="{{ data.price }}" formControlName="price" min="0.01" step="0.01" [disabled]="true" required />
+  </mat-form-field>
+
+  <!-- Stop Loss Input -->
+  <mat-form-field *ngIf="gameport.game.allowstoploss" appearance="fill">
+    <mat-label>Stop Loss</mat-label>
+    <input matInput id="stop-loss" type="number" formControlName="stopLoss" min="1" (input)="calculateMaxGainAndLoss()" />
+  </mat-form-field>
+
+  <!-- Take Profit Input -->
+  <mat-form-field *ngIf="gameport.game.allowtakeprofit" appearance="fill">
+    <mat-label>Take Profit</mat-label>
+    <input matInput id="take-profit" type="number" formControlName="takeProfit" min="1" (input)="calculateMaxGainAndLoss()" />
+  </mat-form-field>
+
+  <!-- Maximum Gain and Loss Display -->
+  <div *ngIf="maxGain !== null || maxLoss !== null" class="max-results">
+    <h3 *ngIf="maxGain !== null">Maximum Gain: {{ maxGain | currency }}</h3>
+    <h3 *ngIf="maxLoss !== null">Maximum Loss: {{ maxLoss | currency }}</h3>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="form-actions">
+    <button mat-raised-button color="primary" type="submit" [disabled]="!tradeForm.valid">Submit</button>
+    <button mat-raised-button type="button" (click)="closePopup()">Cancel</button>
+  </div>
+</form>

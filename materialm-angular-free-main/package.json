@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@angular/core": "^19.0.5",
+    "echarts": "^5.5.1",
+    "ngx-echarts": "^17.2.0"
+  }
+}

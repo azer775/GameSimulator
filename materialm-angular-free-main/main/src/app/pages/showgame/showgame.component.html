@@ -1,0 +1,153 @@
+<!-- Game Clock -->
+<app-gameclock [game]="game" *ngIf="game"></app-gameclock>
+
+<!-- Loading State -->
+<ng-container *ngIf="isLoading">
+  <mat-card class="cardWithShadow">
+    <mat-card-content>
+      <mat-spinner></mat-spinner>
+      <p>Loading data...</p>
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+
+<!-- Account Overview -->
+<div class="card-container" *ngIf="!isLoading">
+  <!-- Account Overview -->
+  <mat-card class="cardWithShadow account-info">
+    <mat-card-content>
+      <mat-card-title>Account Overview</mat-card-title>
+      <mat-grid-list cols="3" rowHeight="100px">
+        <!-- Account Value -->
+        <mat-grid-tile>
+          <div class="tile-content">
+            <mat-icon>account_balance_wallet</mat-icon>
+            <div class="label">Account Value</div>
+            <div class="value">{{ portfolio?.currentCash + totalprofit | currency }}</div>
+          </div>
+        </mat-grid-tile>
+
+        <!-- Trade Value -->
+        <mat-grid-tile>
+          <div class="tile-content">
+            <mat-icon>trending_up</mat-icon>
+            <div class="label">Trade Value</div>
+            <div class="value">{{ totalprofit | currency }}</div>
+          </div>
+        </mat-grid-tile>
+
+        <!-- Cash -->
+        <mat-grid-tile>
+          <div class="tile-content">
+            <mat-icon>attach_money</mat-icon>
+            <div class="label">Cash</div>
+            <div class="value">{{ portfolio?.currentCash | currency }}</div>
+          </div>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Latest Data for Company -->
+  <mat-card class="cardWithShadow">
+    <mat-card-content>
+      <mat-card-title>Latest Data for Company</mat-card-title>
+      <div class="table-responsive">
+        <table mat-table [dataSource]="latestData" class="w-100">
+          <!-- Company Name Column -->
+          <ng-container matColumnDef="companyName">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">Company Name</th>
+            <td mat-cell *matCellDef="let element" class="mat-body-1">
+              <a class="no-link-style" href="/game/CompanyS;id={{ element.company.id }}">{{ element.company.name }}</a>
+            </td>
+          </ng-container>
+          <!-- Latest Price Column -->
+          <ng-container matColumnDef="latestPrice">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">Latest Price</th>
+            <td mat-cell *matCellDef="let element" [ngClass]="{
+                'green-text': element.latestprice > element.prelatestprice,
+                'red-text': element.latestprice <= element.prelatestprice
+              }" class="mat-body-1">
+              {{ element.latestprice | currency }}
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<!-- Game Trades -->
+<mat-card class="cardWithShadow" *ngIf="!isLoading">
+  <mat-card-content>
+    <mat-card-title>Game Trades</mat-card-title>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Company</th>
+            <th>Position</th>
+            <th>Purchased Price</th>
+            <th>Trade Date</th>
+            <th>Shares</th>
+            <th>Current Price</th>
+            <th>Total Value</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="gameTrades.length > 0; else noTrades">
+            <ng-container *ngFor="let trade of gameTrades">
+              <tr *ngIf="trade.state === 'OPEN'">
+                <td>{{ trade.company?.name }}</td>
+                <td>{{ trade.position }}</td>
+                <td>{{ trade.price | currency }}</td>
+                <td>{{ trade.tradeDate | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ trade.shares }}</td>
+                <td>{{ trade.latestPrice | currency }}</td>
+                <td [ngClass]="{
+                    'green-text': (trade.latestPrice > trade.price && trade.position === 'LONG') ||
+                                  (trade.latestPrice < trade.price && trade.position === 'SHORT'),
+                    'red-text': (trade.latestPrice > trade.price && trade.position === 'SHORT') ||
+                                (trade.latestPrice < trade.price && trade.position === 'LONG')
+                  }">
+                  {{ trade.latestPrice * trade.shares | currency }}
+                </td>
+                <td>
+                  <button mat-button (click)="closeTrade(trade, trade.latestPrice)">Close Trade</button>
+                </td>
+              </tr>
+            </ng-container>
+          </ng-container>
+          <ng-template #noTrades>
+            <tr>
+              <td colspan="8" class="text-center">No open trades found.</td>
+            </tr>
+          </ng-template>
+        </tbody>
+      </table>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<!-- Latest News -->
+<mat-card class="cardWithShadow" *ngIf="!isLoading">
+  <mat-card-content>
+    <mat-card-title>Latest News</mat-card-title>
+    <mat-accordion>
+      <ng-container *ngFor="let item of news">
+        <mat-expansion-panel *ngIf="item.releaseDate < date" class="news-item">
+          <mat-expansion-panel-header>
+            <mat-panel-title>{{ item.headline }}</mat-panel-title>
+            <mat-panel-description>
+              <small>Published on: {{ item.releaseDate | date: 'medium' }}</small>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <p>{{ item.content }}</p>
+        </mat-expansion-panel>
+      </ng-container>
+    </mat-accordion>
+  </mat-card-content>
+</mat-card>

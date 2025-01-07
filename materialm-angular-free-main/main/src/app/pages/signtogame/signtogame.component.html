@@ -1,0 +1,5 @@
+<form [formGroup]="form" (ngSubmit)="OnSubmit()">
+    
+    <input type="text" id="gamecode" formControlName="gamecode">
+    <button type="submit" [disabled]="form.invalid">sign in to Game</button>
+</form>

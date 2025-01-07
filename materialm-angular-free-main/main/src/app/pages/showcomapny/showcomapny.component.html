@@ -1,0 +1,63 @@
+<app-gameclock [game]="Company.game" class="game-clock"></app-gameclock>
+<div class="company-details">
+    <h1>{{ Company.name }}</h1>
+    <div class="details-grid">
+      <div class="detail-item">
+        <span class="detail-label">Sector:</span>
+        <span class="detail-value">{{ Company.sector }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">Market Cap:</span>
+        <span class="detail-value">{{ Company.marketCap | currency }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">P/E Ratio:</span>
+        <span class="detail-value">{{ Company.peRatio }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">Debt to Equity:</span>
+        <span class="detail-value">{{ Company.debtToEquity }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">Dividend Yield:</span>
+        <span class="detail-value">{{ Company.dividendYield | percent }}</span>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  <!-- Chart Container -->
+  <div class="chart-container">
+    <div class="chart-header">
+      <h2>Stock Performance</h2>
+    </div>
+    <div echarts [options]="option" id="chart" theme="dark" (chartInit)="onChartInit($event)" class="chart"></div>
+  </div>
+  
+  <!-- Actions Section -->
+  <div class="actions">
+    <button mat-flat-button color="primary" (click)="openPopup()" class="trade-button">
+      <mat-icon>add</mat-icon> Open a Trade
+    </button>
+  </div>
+  
+  <!-- News Section -->
+  <mat-card class="cardWithShadow news-card">
+    <mat-card-content>
+      <mat-card-title>Latest News</mat-card-title>
+      <mat-accordion>
+        <ng-container *ngFor="let item of Company.news">
+          <mat-expansion-panel *ngIf="item.releaseDate < date" class="news-item">
+            <mat-expansion-panel-header>
+              <mat-panel-title>{{ item.headline }}</mat-panel-title>
+              <mat-panel-description>
+                <small>Published on: {{ item.releaseDate | date: 'medium' }}</small>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>{{ item.content }}</p>
+          </mat-expansion-panel>
+        </ng-container>
+      </mat-accordion>
+    </mat-card-content>
+  </mat-card>

@@ -1,0 +1,70 @@
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-header>
+    <mat-card-title class="m-b-0">Form</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="b-t-1">
+<form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
+    <div>
+      <mat-label class="f-w-600 m-b-8 d-block">Company Name:</mat-label>
+      <mat-form-field appearance="outline" class="w-100" color="primary"><input matInput id="name" formControlName="name" /></mat-form-field>
+      <div *ngIf="companyForm.get('name')?.invalid && companyForm.get('name')?.touched">
+        Company Name is required.
+      </div>
+    </div>
+  
+    <div>
+      <mat-label class="f-w-600 m-b-8 d-block">Industry:</mat-label>
+      <mat-form-field appearance="outline" class="w-100" color="primary"><input matInput id="industry" formControlName="industry" /></mat-form-field>
+      <div *ngIf="companyForm.get('industry')?.invalid && companyForm.get('industry')?.touched">
+        Industry is required.
+      </div>
+    </div>
+  
+    <div>
+      <mat-label class="f-w-600 m-b-8 d-block">Initial Price:</mat-label>
+      
+      <mat-form-field appearance="outline" class="w-100" color="primary"><input matInput id="initialPrice" type="number" formControlName="initialPrice" /></mat-form-field>
+    </div>
+  
+    <div>
+      <mat-label class="f-w-600 m-b-8 d-block">Volatility:</mat-label>
+      <mat-form-field appearance="outline" class="w-100" color="primary"><input matInput id="volatility" type="number" formControlName="volatility" /></mat-form-field>
+    </div>
+  
+    <div>
+      <mat-label class="f-w-600 m-b-8 d-block">Drift:</mat-label>
+      <mat-form-field appearance="outline" class="w-100" color="primary"><input matInput id="drift" type="number" formControlName="drift" /></mat-form-field>
+    </div>
+  
+    <div>
+      <mat-label class="f-w-600 m-b-8 d-block">Trends:</mat-label>
+      <div formArrayName="trends">
+        <div *ngFor="let trend of trends.controls; let i = index">
+          <input [formControlName]="i" />
+          <button type="button" (click)="removeTrend(i)">Remove</button>
+        </div>
+      </div>
+      <button type="button" (click)="addTrend()">Add Trend</button>
+    </div>
+    <div class="m-t-12">
+      <button mat-flat-button color="primary" (click)="sendData()">Save Company</button>  
+      <button mat-flat-button color="primary" type="submit" [disabled]="companyForm.invalid">Add Company</button>
+      </div>
+    
+  </form> 
+<div echarts [options]="option" id="main" (chartClick)="onChartEvent($event, 'chartClick')" theme="dark"></div>
+<div *ngFor="let newsForm of newsForms; let i = index" class="news-form-container">
+    <form [formGroup]="newsForm.form" class="news-form">
+      <label for="date">Date:</label>
+      <input id="date" formControlName="date" readonly />
+  
+      <label for="news">News:</label>
+      <textarea id="news" formControlName="news"></textarea>
+  
+      <button type="button" (click)="submitNews(i)">Submit</button>
+      <button type="button" (click)="removeForm(i)">Cancel</button>
+    </form>
+  </div>
+  
+</mat-card-content>
+</mat-card>

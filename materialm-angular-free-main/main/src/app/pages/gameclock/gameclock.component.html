@@ -1,0 +1,11 @@
+<mat-card class="cardWithShadow clock-container">
+  <mat-card-content>
+    <div class="clock-content">
+      <mat-icon class="clock-icon">schedule</mat-icon>
+      <div class="clock-text">
+        <p class="clock-time">{{ virtualTime | date: 'HH:mm' }}</p>
+        <p class="clock-date">{{ virtualTime | date: 'yyyy-MM-dd' }}</p>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,142 @@
+/* General Styles */
+.mat-card {
+  margin: 16px;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mat-card-title {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+/* Account Overview */
+.account-info .tile-content {
+  text-align: center;
+}
+
+.account-info .tile-content mat-icon {
+  font-size: 32px;
+  width: 32px;
+  height: 32px;
+  margin-bottom: 8px;
+  color: #3f51b5; /* Material primary color */
+}
+
+.account-info .tile-content .label {
+  font-size: 14px;
+  color: #666;
+}
+
+.account-info .tile-content .value {
+  font-size: 20px;
+  font-weight: 500;
+  color: #333;
+}
+
+/* Tables */
+.table-responsive {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.table th {
+  background-color: #f2f2f2;
+  font-weight: 500;
+}
+
+/* Buttons */
+button.mat-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button.mat-button:hover {
+  background-color: #218838;
+}
+
+/* News Section */
+.news-item {
+  border-bottom: 1px solid #eee;
+  padding: 16px 0;
+}
+
+.news-headline {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+}
+
+.news-content {
+  font-size: 14px;
+  color: #666;
+  margin-top: 8px;
+}
+
+.news-date {
+  font-size: 12px;
+  color: #999;
+  margin-top: 4px;
+}
+
+.mat-expansion-panel {
+  margin-bottom: 8px;
+}
+
+/* Colors */
+.green-text {
+  color: green;
+  font-weight: bold;
+}
+
+.red-text {
+  color: red;
+  font-weight: bold;
+}
+/* Flexbox container for the cards */
+.card-container {
+  display: flex;
+  gap: 16px; /* Space between the cards */
+  margin: 16px; /* Consistent margin */
+}
+
+/* Ensure both cards take up equal space */
+.card-container > mat-card {
+  flex: 1; /* Distribute space equally */
+}
+
+/* Adjust the grid layout inside the Account Overview card */
+.account-info .mat-grid-list {
+  height: auto; /* Allow the grid to adjust its height */
+}
+
+/* Ensure the table inside Latest Data card is responsive */
+.table-responsive {
+  overflow-x: auto;
+}
+.no-link-style {
+  color: inherit; /* Inherit text color from parent */
+  text-decoration: none; /* Remove underline */
+  cursor: pointer; /* Show pointer cursor on hover */
+}
+
+.no-link-style:hover {
+  text-decoration: underline; /* Optional: Add underline on hover */
+}
