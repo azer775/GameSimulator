@@ -19,4 +19,8 @@ export class GameportfolioService {
       get(idg:number,idu:number): Observable<GamePortfolio> {
         return this.http.get<GamePortfolio>(`${this.baseUrl}getport/${idg}/${idu}`);
       }
+      save(idg:number,idu:number) :Observable<GamePortfolio>{
+        const game:GamePortfolio=new GamePortfolio();
+        return this.http.post<GamePortfolio>(`${this.baseUrl}save/${idg}/${idu}`,game);
+      }
 }

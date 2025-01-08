@@ -1,0 +1,43 @@
+<div class="game-list-container">
+    <h2>Game List</h2>
+  
+    <table mat-table [dataSource]="games" class="mat-elevation-z8">
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let game">{{ game.id }}</td>
+      </ng-container>
+  
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let game">{{ game.name }}</td>
+      </ng-container>
+  
+      <!-- Start Date Column -->
+      <ng-container matColumnDef="startDate">
+        <th mat-header-cell *matHeaderCellDef>Start Date</th>
+        <td mat-cell *matCellDef="let game">{{ game.startDate | date: 'mediumDate' }}</td>
+      </ng-container>
+  
+      <!-- End Date Column -->
+      <ng-container matColumnDef="endDate">
+        <th mat-header-cell *matHeaderCellDef>End Date</th>
+        <td mat-cell *matCellDef="let game">{{ game.endDate | date: 'mediumDate' }}</td>
+      </ng-container>
+  
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let game">
+            <button mat-icon-button color="primary" (click)="viewGame(game.id)">
+              <mat-icon>group_add</mat-icon> <!-- Use play_arrow icon for joining -->
+            </button>
+          </td>
+      </ng-container>
+  
+      <!-- Header and Row Definitions -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>

@@ -33,5 +33,15 @@ public class GamePortfolioService {
         u.setId(idu);
         return this.gamePortfolioRepository.findByGameAndPlayer(game,u);
     }
+    public GamePortfolio createbyuserandgame(int idg,int idu){
+        Game game =gameRepository.findById(idg);
+        GamePortfolio gamePortfolio =new GamePortfolio();
+        gamePortfolio.setGame(game);
+        User user=new User();
+        user.setId(idu);
+        gamePortfolio.setPlayer(user);
+        gamePortfolio.setCurrentCash(game.getStartingAmount());
+        return gamePortfolioRepository.save(gamePortfolio);
+    }
 
 }

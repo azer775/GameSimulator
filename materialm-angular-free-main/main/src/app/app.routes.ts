@@ -7,6 +7,8 @@ import { GameformComponent } from './pages/gameform/gameform.component';
 import { ShowcomapnyComponent } from './pages/showcomapny/showcomapny.component';
 import { ShowgameComponent } from './pages/showgame/showgame.component';
 import { LoginazerComponent } from './pages/loginazer/loginazer.component';
+import { Game } from './Models/Game';
+import { GamelistComponent } from './pages/gamelist/gamelist.component';
 
 export const routes: Routes=[
   {path: 'game', component: FullComponent,
@@ -15,7 +17,8 @@ export const routes: Routes=[
       {path:"CompanyC", component:Addtest2Component},
       {path:"CompanyS", component:ShowcomapnyComponent},
       {path:"GameS", component:ShowgameComponent},
-      {path:"add", component:GameformComponent}
+      {path:"add", component:GameformComponent},
+      {path:"all", component:GamelistComponent},
     ]
   },
   {path: 'logina', component: LoginazerComponent

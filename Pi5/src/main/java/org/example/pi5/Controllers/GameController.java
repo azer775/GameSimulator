@@ -39,4 +39,8 @@ public class GameController {
     public User getu(@PathVariable String u){
         return userazerRepository.findByUsername(u);
     }
+    @GetMapping("all")
+    public List<Game> findall(){
+        return gameService.getall();
+    }
 }

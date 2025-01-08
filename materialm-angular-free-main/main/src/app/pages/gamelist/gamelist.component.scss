@@ -1,0 +1,40 @@
+.game-list-container {
+    padding: 20px;
+  }
+  
+  h2 {
+    margin-bottom: 16px;
+    font-size: 24px;
+    color: #3f51b5; // Primary color
+  }
+  
+  table {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  th.mat-header-cell {
+    font-weight: bold;
+    background-color: #3f51b5; // Primary color
+    color: white;
+  }
+  
+  td.mat-cell {
+    padding: 12px;
+  }
+  
+  button[mat-icon-button] {
+    margin: 0 4px;
+  }
+  button[mat-icon-button] {
+    margin: 0 4px;
+    background-color: #3f51b5; // Primary color
+    color: white;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+  
+    &:hover {
+      background-color: #303f9f; // Darker shade on hover
+    }
+  }

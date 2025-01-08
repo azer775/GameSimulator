@@ -103,4 +103,7 @@ public class GameService {
                 .filter(Objects::nonNull) // Remove any null entries
                 .collect(Collectors.toList());
     }
+    public List<Game> getall(){
+        return gameRepository.findAll();
+    }
 }

@@ -52,4 +52,7 @@ export class GameService {
     getbyid(id: number): Observable<Game> {
       return this.http.get<Game>(`${this.baseUrl}byid/${id}`);
     }
+    getAllGames(): Observable<Game[]> {
+      return this.http.get<Game[]>(`${this.baseUrl}all`);
+    }
 }

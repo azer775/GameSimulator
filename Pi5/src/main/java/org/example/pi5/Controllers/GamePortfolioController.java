@@ -22,4 +22,8 @@ public class GamePortfolioController {
     public GamePortfolio get(@PathVariable(name = "idg") int idg,@PathVariable(name = "idu")int idu){
         return this.gamePortfolioService.findbygameandplayer(idg,idu);
     }
+    @PostMapping("save/{idg}/{idu}")
+    public GamePortfolio save2(@PathVariable(name = "idg") int idg,@PathVariable(name = "idu")int idu,@RequestBody GamePortfolio gamePortfolio){
+        return gamePortfolioService.createbyuserandgame(idg, idu);
+    }
 }

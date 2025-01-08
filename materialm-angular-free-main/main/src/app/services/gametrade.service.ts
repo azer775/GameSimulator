@@ -22,5 +22,6 @@ export class GametradeService {
   closeTrade(id: number, price: number): Observable<Gametrade> {
     return this.http.put<Gametrade>(`${this.baseUrl}/close/${id}/${price}`, {});
   }
+  
 
 }
