@@ -15,6 +15,7 @@ export const routes: Routes=[
       {path:"CompanyC", component:Addtest2Component},
       {path:"CompanyS", component:ShowcomapnyComponent},
       {path:"GameS", component:ShowgameComponent},
+      {path:"add", component:GameformComponent}
     ]
   },
   {path: 'logina', component: LoginazerComponent

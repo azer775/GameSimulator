@@ -1,7 +1,7 @@
 import { A } from '@angular/cdk/keycodes';
 import { NgIf, NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -53,9 +53,13 @@ export class GameformComponent implements OnInit{
       allowtakeprofit: [false],
       allowshortpos: [false],
       allowlongpos: [false],
-    });
+    },{ validators: this.atLeastOnePositionValidator });
   }
-
+  atLeastOnePositionValidator(control: AbstractControl): ValidationErrors | null {
+    const allowshortpos = control.get('allowshortpos')?.value;
+    const allowlongpos = control.get('allowlongpos')?.value;
+    return allowshortpos || allowlongpos ? null : { atLeastOnePosition: true };
+  }
   createGame() {
     if (this.gameForm.valid) {
       const game: GameDTO = this.gameForm.value; // Get the form values
@@ -63,7 +67,7 @@ export class GameformComponent implements OnInit{
         (response) => {
           console.log('game sent', game);
           console.log('Game created successfully', response);
-          this.router.navigate(['/login/CompanyC', { id: JSON.stringify(response.id) }]);
+          this.router.navigate(['/game/CompanyC', { id: JSON.stringify(response.id) }]);
         },
         (error) => {
           console.log('game', game);

@@ -38,13 +38,28 @@
   
     <div>
       <mat-label class="f-w-600 m-b-8 d-block">Trends:</mat-label>
-      <div formArrayName="trends">
-        <div *ngFor="let trend of trends.controls; let i = index">
-          <input [formControlName]="i" />
-          <button type="button" (click)="removeTrend(i)">Remove</button>
-        </div>
+<div formArrayName="trends" class="trends-container">
+  <div *ngFor="let trend of trends.controls; let i = index" class="trend-item">
+    <!-- Display the selected trend with a delete icon -->
+    <span class="trend-value">
+      {{ trend.value }}
+      <mat-icon class="delete-icon" (click)="removeTrend(i)">delete</mat-icon>
+    </span>
+  </div>
+</div>
+    <br>
+      <!-- Trend Selection Buttons -->
+      <div class="trend-buttons">
+        <button mat-raised-button color="primary" (click)="addTrend('Up')">
+          <mat-icon>trending_up</mat-icon> Up
+        </button>
+        <button mat-raised-button color="warn" (click)="addTrend('Down')">
+          <mat-icon>trending_down</mat-icon> Down
+        </button>
+        <button mat-raised-button color="accent" (click)="addTrend('Neutral')">
+          <mat-icon>trending_flat</mat-icon> Neutral
+        </button>
       </div>
-      <button type="button" (click)="addTrend()">Add Trend</button>
     </div>
     <div class="m-t-12">
       <button mat-flat-button color="primary" (click)="sendData()">Save Company</button>  
@@ -52,17 +67,32 @@
       </div>
     
   </form> 
-<div echarts [options]="option" id="main" (chartClick)="onChartEvent($event, 'chartClick')" theme="dark"></div>
-<div *ngFor="let newsForm of newsForms; let i = index" class="news-form-container">
+  <div echarts [options]="option" id="main" (chartClick)="onChartEvent($event, 'chartClick')" theme="dark"></div>
+
+  <div *ngFor="let newsForm of newsForms; let i = index" class="news-form-container">
     <form [formGroup]="newsForm.form" class="news-form">
-      <label for="date">Date:</label>
-      <input id="date" formControlName="date" readonly />
+      <!-- Date -->
+      <mat-form-field appearance="fill">
+        <mat-label>Date</mat-label>
+        <input matInput id="date" formControlName="date" readonly />
+      </mat-form-field>
   
-      <label for="news">News:</label>
-      <textarea id="news" formControlName="news"></textarea>
+      <!-- Headline -->
+      <mat-form-field appearance="fill">
+        <mat-label>Headline</mat-label>
+        <textarea matInput id="headline" formControlName="headline" rows="2"></textarea>
+      </mat-form-field>
   
-      <button type="button" (click)="submitNews(i)">Submit</button>
-      <button type="button" (click)="removeForm(i)">Cancel</button>
+      <!-- Content -->
+      <mat-form-field appearance="fill">
+        <mat-label>Content</mat-label>
+        <textarea matInput id="news" formControlName="news" rows="4"></textarea>
+      </mat-form-field>
+  
+      <!-- Cancel Button -->
+      <button mat-raised-button color="warn" type="button" (click)="removeForm(i)">
+        <mat-icon>delete</mat-icon> Cancel
+      </button>
     </form>
   </div>
   

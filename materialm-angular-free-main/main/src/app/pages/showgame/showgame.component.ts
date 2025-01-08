@@ -60,12 +60,12 @@ export class ShowgameComponent implements OnInit {
     this.gameService.getbyid(this.route.snapshot.params['id']).subscribe({
       next: (data: Game) => {
         this.game = data;
-        console.log('Fetched game:', data);
+       // console.log('Fetched game:', data);
 
         // Fetch latest data and connect to WebSocket
-        this.fetchLatestData(this.selectedCompanyId);
+        this.fetchLatestData(this.route.snapshot.params['id']);
         this.webSocketService.connectToLatest(
-          this.id,
+          this.route.snapshot.params['id'],
           this.game.startDate,
           this.game.endDate || new Date(),
           this.game.candlesPerDay || 0,
@@ -73,7 +73,7 @@ export class ShowgameComponent implements OnInit {
         ).subscribe(data => {
           if (data != null) {
             this.latestData = data;
-            console.log("WebSocket data:", this.latestData);
+            //console.log("WebSocket data:", this.latestData);
             this.updateTradesWithLatestPrice();
             this.date = this.latestData[0].datetime;
           }
@@ -94,7 +94,7 @@ export class ShowgameComponent implements OnInit {
         this.news = this.latestData.flatMap((data) => data.company.news);
         console.log("news", this.news);
         this.fetchGameTrades();
-        console.log('Fetched latest data:', data);
+        //console.log('Fetched latest data:', data);
       },
       error: (err) => {
         console.error('Error fetching data:', err);

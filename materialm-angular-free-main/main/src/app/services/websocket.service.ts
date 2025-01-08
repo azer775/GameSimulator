@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, interval, Observable, switchMap } from 'rxjs';
+import { BehaviorSubject, interval, max, Observable, switchMap } from 'rxjs';
 import SockJS from 'sockjs-client';
 import {Client, over } from 'stompjs';
 import { Stomp } from '@stomp/stompjs';
@@ -148,7 +148,7 @@ export class WebsocketService {
           this.tradeservice.getGameTradesByUserAndGame(idu, idg).subscribe(data => {
             this.mockData1 = data;  // Assuming the data is in the form of GameTrade[]
           });
-          console.log(this.mockData1);
+         // console.log(this.mockData1);
           observer.next(this.mockData1);
           observer.complete();
         });
@@ -191,7 +191,7 @@ export class WebsocketService {
             switchMap(() => this.fetchGameLatestData())
           ).subscribe(data => {
             this.gameDataUpdates.next(data);  // Emit new data
-            console.log('Fetched latest data:', data);
+            //console.log('Fetched latest data:', data);
           });
     
         }, (error: any) => {
@@ -218,7 +218,9 @@ export class WebsocketService {
         // Calculate real microseconds between each candlestick
         const microsecondsBetweenCandlesticks = totalRealTimeInMicroseconds / totalCandlesticks;
         console.log('Real microseconds between candlesticks:', microsecondsBetweenCandlesticks);
-
-        return microsecondsBetweenCandlesticks;
+        if(microsecondsBetweenCandlesticks>6000){
+          return microsecondsBetweenCandlesticks;
+        }
+        return 6000;
       }
 }

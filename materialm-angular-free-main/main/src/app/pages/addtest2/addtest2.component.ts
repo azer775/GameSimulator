@@ -43,6 +43,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { ActivatedRoute } from '@angular/router';
+import { MatIcon } from '@angular/material/icon';
 echarts.use([
   DatasetComponent,
   TitleComponent,
@@ -78,6 +79,7 @@ echarts.use([
           MatCardModule,
           MatInputModule,
           MatCheckboxModule,
+          MatIcon
     ]
 })
 export class Addtest2Component implements OnInit {
@@ -85,6 +87,7 @@ export class Addtest2Component implements OnInit {
   Cs!: CandlestickData[];
   gameId: number = 1;
   option!: EChartsOption; 
+  show: boolean=false;
   newsForms: { form: FormGroup, position: { top: string, left: string } }[] = [];
    
   constructor(private fb: FormBuilder, private companyService: CompanyService,private route: ActivatedRoute) {
@@ -156,7 +159,8 @@ export class Addtest2Component implements OnInit {
       // Create a new form
       const newsForm = this.fb.group({
         date: [date],
-        news: ['']
+        news: [''],
+        headline: ['']
       });
 
       // Add to the list of forms
@@ -175,11 +179,15 @@ export class Addtest2Component implements OnInit {
   removeForm(index: number) {
     this.newsForms.splice(index, 1); // Remove the form without submission
   }
-  addTrend() {
-    this.trends.push(this.fb.control(''));
+  
+
+  // Add a trend to the form array
+  addTrend(trend: string): void {
+    this.trends.push(this.fb.control(trend));
   }
 
-  removeTrend(index: number) {
+  // Remove a trend from the form array
+  removeTrend(index: number): void {
     this.trends.removeAt(index);
   }
   get trends(): FormArray {
@@ -376,7 +384,7 @@ export class Addtest2Component implements OnInit {
               }*/
             ]
           };
-          
+          this.show=true;
 
         },
         error: (error) => {
@@ -401,7 +409,7 @@ export class Addtest2Component implements OnInit {
       }))*/, // Use processed candlestick data
       news: this.newsForms.map((newsForm) => ({
         id: 0,
-        headline: '',
+        headline: newsForm.form.value.headline,
         impact: 0,
         releaseDate: this.formatDate(newsForm.form.value.date) as unknown as Date,
         content: newsForm.form.value.news,
