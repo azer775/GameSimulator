@@ -9,6 +9,7 @@ import { ShowgameComponent } from './pages/showgame/showgame.component';
 import { LoginazerComponent } from './pages/loginazer/loginazer.component';
 import { Game } from './Models/Game';
 import { GamelistComponent } from './pages/gamelist/gamelist.component';
+import { MygamelistComponent } from './pages/mygamelist/mygamelist.component';
 
 export const routes: Routes=[
   {path: 'game', component: FullComponent,
@@ -19,6 +20,7 @@ export const routes: Routes=[
       {path:"GameS", component:ShowgameComponent},
       {path:"add", component:GameformComponent},
       {path:"all", component:GamelistComponent},
+      {path:"my", component:MygamelistComponent}
     ]
   },
   {path: 'logina', component: LoginazerComponent

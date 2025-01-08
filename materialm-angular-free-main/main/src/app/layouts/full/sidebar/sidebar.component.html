@@ -1,10 +1,96 @@
 <div class="d-flex align-items-center justify-content-between">
     <app-branding></app-branding>
-
+  
     @if(showToggle) {
     <a href="javascript:void(0)" (click)="toggleMobileNav.emit()"
         class="d-flex justify-content-center ng-star-inserted icon-40 align-items-center mat-body-1">
         <i-tabler name="x" class="icon-20 d-flex"></i-tabler>
     </a>
     }
-</div>
+  </div>
+  
+  <nav class="sidebar-nav">
+    <ul class="nav flex-column">
+      @for (item of navItems; track item.displayName) {
+        @if (item.navCap) {
+          <li class="nav-cap">{{ item.navCap }}</li>
+        }
+        @if (item.divider) {
+          <li class="divider"></li>
+        }
+        @if (item.children) {
+          <li class="nav-item">
+            <a class="nav-link" (click)="toggleDropdown(item)">
+              <i-tabler [name]="item.iconName" class="icon-20"></i-tabler>
+              <span class="nav-text">{{ item.displayName }}</span>
+              <i-tabler [name]="item.expanded ? 'chevron-down' : 'chevron-right'" class="icon-20 ms-auto"></i-tabler>
+            </a>
+            <ul class="nav flex-column sub-menu" [class.show]="item.expanded">
+              @for (child of item.children; track child.displayName) {
+                <li class="nav-item">
+                  <a class="nav-link" [routerLink]="child.route">
+                    <i-tabler [name]="child.iconName" class="icon-20"></i-tabler>
+                    <span class="nav-text">{{ child.displayName }}</span>
+                  </a>
+                </li>
+              }
+            </ul>
+          </li>
+        } @else {
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="item.route">
+              <i-tabler [name]="item.iconName" class="icon-20"></i-tabler>
+              <span class="nav-text">{{ item.displayName }}</span>
+            </a>
+          </li>
+        }
+      }
+    </ul>
+  </nav>
+  <style>.sidebar-nav {
+    .nav-item {
+      .nav-link {
+        display: flex;
+        align-items: center;
+        padding: 8px 16px;
+        color: #333;
+        text-decoration: none;
+  
+        &:hover {
+          background-color: #f5f5f5;
+        }
+  
+        .icon-20 {
+          margin-right: 8px;
+        }
+  
+        .nav-text {
+          flex-grow: 1;
+        }
+      }
+  
+      .sub-menu {
+        padding-left: 24px;
+        display: none;
+  
+        &.show {
+          display: block;
+        }
+  
+        .nav-link {
+          padding: 6px 16px;
+        }
+      }
+    }
+  
+    .nav-cap {
+      padding: 8px 16px;
+      font-weight: bold;
+      color: #666;
+    }
+  
+    .divider {
+      border-bottom: 1px solid #ddd;
+      margin: 8px 0;
+    }
+  }</style>

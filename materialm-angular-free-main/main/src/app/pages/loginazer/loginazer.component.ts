@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MaterialModule } from 'src/app/material.module';
 import { User } from 'src/app/Models/User';
 import { GameService } from 'src/app/services/game.service';
@@ -19,7 +19,7 @@ import { GameService } from 'src/app/services/game.service';
 })
 export class LoginazerComponent {
   user!:string;
-  constructor(private gameservice:GameService){
+  constructor(private gameservice:GameService,private router: Router){
 
   }
 
@@ -29,6 +29,7 @@ export class LoginazerComponent {
       console.log(data)
       localStorage.setItem('userIDD', data.id.toString());
       console.log("user local",localStorage.getItem('userIDD'));
+      this.router.navigate(['/game/all'])
     }
       
   );

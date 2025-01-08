@@ -1,10 +1,13 @@
 package org.example.pi5.Controllers;
 
 import org.example.pi5.Services.GamePortfolioService;
+import org.example.pi5.entities.Game;
 import org.example.pi5.entities.GamePortfolio;
 import org.example.pi5.entities.GamePortfolioDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("gameportfolio")
@@ -25,5 +28,9 @@ public class GamePortfolioController {
     @PostMapping("save/{idg}/{idu}")
     public GamePortfolio save2(@PathVariable(name = "idg") int idg,@PathVariable(name = "idu")int idu,@RequestBody GamePortfolio gamePortfolio){
         return gamePortfolioService.createbyuserandgame(idg, idu);
+    }
+    @GetMapping("getbyu/{idu}")
+    public List<Game> findbyplayer(@PathVariable int idu){
+        return gamePortfolioService.findbyuser(idu);
     }
 }

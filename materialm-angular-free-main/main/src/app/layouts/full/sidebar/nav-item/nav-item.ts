@@ -4,4 +4,6 @@ export interface NavItem {
   iconName?: string;
   navCap?: string;
   route?: string;
+  children?: NavItem[];
+  expanded?: boolean;
 }

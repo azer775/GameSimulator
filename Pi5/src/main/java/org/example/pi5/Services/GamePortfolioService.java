@@ -6,8 +6,11 @@ import org.example.pi5.entities.GamePortfolioDTO;
 import org.example.pi5.entities.User;
 import org.example.pi5.repositories.GamePortfolioRepository;
 import org.example.pi5.repositories.GameRepository;
+import org.example.pi5.repositories.UserazerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class GamePortfolioService {
@@ -15,6 +18,8 @@ public class GamePortfolioService {
     GamePortfolioRepository gamePortfolioRepository;
     @Autowired
     GameRepository gameRepository;
+    @Autowired
+    UserazerRepository userazerRepository;
     public GamePortfolio add(GamePortfolioDTO dto){
         System.out.println(dto);
         Game game= gameRepository.findGameByUniqueCode(dto.getGamecode());
@@ -42,6 +47,10 @@ public class GamePortfolioService {
         gamePortfolio.setPlayer(user);
         gamePortfolio.setCurrentCash(game.getStartingAmount());
         return gamePortfolioRepository.save(gamePortfolio);
+    }
+    public List<Game> findbyuser(int id){
+        User user = userazerRepository.findById(id).orElse(null);
+        return gamePortfolioRepository.findPortByUser(user);
     }
 
 }
