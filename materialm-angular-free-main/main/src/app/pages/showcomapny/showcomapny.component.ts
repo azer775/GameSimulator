@@ -82,7 +82,7 @@ onChartLoad(chart: any):void {
         });
 }
 
-  id: number = 1;
+  id: number;
   option!: EChartsOption; 
   Company!: Company;
   Cs!: CandlestickData[];
@@ -377,7 +377,8 @@ onChartLoad(chart: any):void {
       width: "flex", // Set the width of the dialog
       data: { message: 'Hello from the parent component!' ,
         id: this.id,
-        price: this.latestprice
+        price: this.latestprice,
+        game: this.Company.game
       }, // Pass data if needed
     });
   }

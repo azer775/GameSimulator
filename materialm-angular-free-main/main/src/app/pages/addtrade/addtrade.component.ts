@@ -38,7 +38,7 @@ public positions = ['LONG', 'SHORT']; // Dropdown options for position
  maxLoss: number | null = null;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { message: string ,id: number, price: number}, // Access the passed data
+    @Inject(MAT_DIALOG_DATA) public data: { message: string ,id: number, price: number,game:Game}, // Access the passed data
     private dialogRef: MatDialogRef<AddtradeComponent>, // Reference to the dialog
     private GameportfolioService: GameportfolioService,
     private fb: FormBuilder,
@@ -55,7 +55,7 @@ public positions = ['LONG', 'SHORT']; // Dropdown options for position
     }
   ngOnInit(): void {
     
-    this.GameportfolioService.get(this.data.id,1).subscribe(data => {
+    this.GameportfolioService.get(this.data.game.id,Number(localStorage.getItem("userIDD"))).subscribe(data => {
       this.gameport = data;
     });
     //this.tradeForm.get('price')?.disable();
