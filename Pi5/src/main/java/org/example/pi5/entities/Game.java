@@ -38,7 +38,7 @@ public class Game {
     public Game(int gameId) {
         this.id=gameId;
     }
-
+    /**/
     @PrePersist
     private void generateUniqueCode() {
         // Generate a unique code using UUID and a prefix, can be customized
